@@ -33,3 +33,24 @@ void Business::setWorth(){
     //generate a random num in the range [200, 5000]
     worth = distrib(gen);
 }
+
+const Employee* Business::findEmployee(const std::string& employeeId) const{
+    for(const Employee& employee : employees){
+        if(employee.getEmployeeId() == employeeId){
+            return &employee;
+        }
+    }
+    return nullptr;
+}
+
+void Business::addEmployee(const Employee& employee){
+    employees.push_back(employee);
+}
+
+
+void Business::displayEmployees() const{
+    for(const Employee& employee : employees){
+        employee.displayInfo();
+        std::cout << "-------------------" << std::endl;
+    }
+}

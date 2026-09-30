@@ -6,8 +6,9 @@ class Employee
 {
 public:
     Employee(const std::string& name, const std::string& employeeId);
-    void displayInfo();
+    void displayInfo() const;
     void setPositionAndRate();
+    const std::string& getEmployeeId() const;
 
 private:
     std::string name;

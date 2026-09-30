@@ -11,7 +11,7 @@ Employee::Employee(const std::string& name, const std::string& employeeId)
     setPositionAndRate();
 }
 
-void Employee::displayInfo(){
+void Employee::displayInfo() const{
     std::cout << "Employee name: " << name << std::endl;
     std::cout << "Employee ID: " << employeeId << std::endl;
     std::cout << "Position: " << position << std::endl;
@@ -56,4 +56,8 @@ void Employee::setPositionAndRate(){
             break;
     }
 
+}
+
+const std::string& Employee::getEmployeeId() const{
+    return employeeId;
 }
