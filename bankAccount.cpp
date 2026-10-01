@@ -1,4 +1,5 @@
 #include "bankAccount.h"
+#include <mutex>
 
 BankAccount::BankAccount(const std::string& accountId)
     : accountId(accountId), balance(0.0)
@@ -6,6 +7,7 @@ BankAccount::BankAccount(const std::string& accountId)
 }
 
 bool BankAccount::withdraw(double amount){
+    std::lock_guard<std::mutex> lock(bankMutex);
     if(amount > 0 && amount <= balance){
         balance -= amount;
         return true;
@@ -15,6 +17,7 @@ bool BankAccount::withdraw(double amount){
 }
 
 bool BankAccount::deposit(double amount){
+    std::lock_guard<std::mutex> lock(bankMutex);
     if(amount > 0){
         balance += amount;
         return true;
@@ -28,5 +31,6 @@ const std::string& BankAccount::getAccountId() const{
 }
 
 double BankAccount::getBalance() const{
+    std::lock_guard<std::mutex> lock(bankMutex);
     return balance;
 }

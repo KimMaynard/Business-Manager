@@ -15,6 +15,7 @@ Business::Business(const std::string& businessName, const std::string& owner, co
 
 void Business::displayInfo()
 {
+    std::lock_guard<std::mutex> lock(businessMutex);
     std::cout << "Business name: " << businessName << std::endl;
     std::cout << "Owner: " << owner << std::endl;
     std::cout << "Business ID: " << businessId << std::endl;
@@ -25,6 +26,7 @@ void Business::displayInfo()
 }
 
 void Business::setWorth(){
+    std::lock_guard<std::mutex> lock(businessMutex);
     //initialize a random num generator
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -34,21 +36,25 @@ void Business::setWorth(){
     worth = distrib(gen);
 }
 
-const Employee* Business::findEmployee(const std::string& employeeId) const{
+ std::optional<Employee> Business::findEmployee(const std::string& employeeId) const{
+    std::lock_guard<std::mutex> lock(businessMutex);
     for(const Employee& employee : employees){
         if(employee.getEmployeeId() == employeeId){
-            return &employee;
+            return employee;
         }
     }
-    return nullptr;
+
+    return std::nullopt;
 }
 
 void Business::addEmployee(const Employee& employee){
+    std::lock_guard<std::mutex> lock(businessMutex);
     employees.push_back(employee);
 }
 
 
 void Business::displayEmployees() const{
+    std::lock_guard<std::mutex> lock(businessMutex);
     for(const Employee& employee : employees){
         employee.displayInfo();
         std::cout << "-------------------" << std::endl;

@@ -1,6 +1,8 @@
 #ifndef BANKACCOUNT_H
 #define BANKACCOUNT_H
 #include <string>
+#include <mutex>
+
 
 class BankAccount
 {
@@ -16,6 +18,7 @@ private:
     std::string accountId;
     double balance;
     double initialBalance;
+    mutable std::mutex bankMutex;
 };  
 
 

@@ -6,6 +6,8 @@
 #include <vector>
 #include "employee.h"
 #include "bankAccount.h"
+#include <mutex>
+#include <optional>
 
 class Business
 {
@@ -16,7 +18,7 @@ public:
     void setWorth();
     void addEmployee(const Employee& employee);
     void displayEmployees() const;
-    const Employee* findEmployee(const std::string& employeeId) const;
+    std::optional<Employee> findEmployee(const std::string& employeeId) const;
     bool deposit(double amount);
     bool withdrawal(double amount);
     double getBalance();
@@ -30,7 +32,7 @@ private:
     double amount;
     std::vector<Employee> employees;
     BankAccount bankAccount;
-
+    mutable std::mutex businessMutex;
 };  
 
 
