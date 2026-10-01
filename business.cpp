@@ -5,8 +5,8 @@
 #include <iomanip>
 
 
-Business::Business(const std::string& businessName, const std::string& owner, const std::string& businessId)
-    : businessName(businessName), owner(owner), businessId(businessId), worth(0.0)
+Business::Business(const std::string& businessName, const std::string& owner, const std::string& businessId, const std::string& bankAccountId)
+    : businessName(businessName), owner(owner), businessId(businessId), bankAccount(bankAccountId), worth(0.0) 
 {
     //worth is initially set to 0. Calling setWorth() to assign it a random worth
     setWorth();
@@ -53,4 +53,16 @@ void Business::displayEmployees() const{
         employee.displayInfo();
         std::cout << "-------------------" << std::endl;
     }
+}
+
+bool Business::deposit(double amount){
+    return bankAccount.deposit(amount);
+}
+
+bool Business::withdrawal(double amount){
+    return bankAccount.withdraw(amount);
+}
+
+double Business::getBalance(){
+    return bankAccount.getBalance();
 }

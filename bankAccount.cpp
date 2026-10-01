@@ -1,6 +1,4 @@
-#include <bankAccount.h>
-
-
+#include "bankAccount.h"
 
 BankAccount::BankAccount(const std::string& accountId)
     : accountId(accountId), balance(0.0)
@@ -8,9 +6,8 @@ BankAccount::BankAccount(const std::string& accountId)
 }
 
 bool BankAccount::withdraw(double amount){
-    double accountBalance = getBalance();
-    if(accountBalance > amount){
-        accountBalance -= amount;
+    if(amount > 0 && amount <= balance){
+        balance -= amount;
         return true;
     } else {
         return false;
@@ -19,11 +16,10 @@ bool BankAccount::withdraw(double amount){
 
 bool BankAccount::deposit(double amount){
     if(amount > 0){
-        double accountBalance = getBalance();
-        accountBalance += amount;
-        return true;    
+        balance += amount;
+        return true;
     } else {
-        return false;    
+        return false;
     }
 }
 

@@ -5,7 +5,7 @@
 class BankAccount
 {
 public:
-    BankAccount(const std::string& accountId, double initialBalance);
+    BankAccount(const std::string& accountId);
     bool deposit(double amount);
     bool withdraw(double amount);
     double getBalance() const;
@@ -15,6 +15,7 @@ public:
 private:
     std::string accountId;
     double balance;
+    double initialBalance;
 };  
 
 
