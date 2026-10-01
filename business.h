@@ -25,8 +25,7 @@ private:
     double worth;
     std::vector<Employee> employees;
 
-};
+};  
 
 
 #endif
-

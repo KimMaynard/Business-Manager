@@ -28,9 +28,9 @@ void Business::setWorth(){
     //initialize a random num generator
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> distrib(200, 5000);
+    std::uniform_real_distribution<> distrib(20000, 50000);
 
-    //generate a random num in the range [200, 5000]
+    //generate a random num in the range [20000, 50000]
     worth = distrib(gen);
 }
 
