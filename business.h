@@ -23,6 +23,7 @@ public:
     bool withdrawal(double amount);
     double getBalance();
     
+    
 
 private:
     std::string businessName;

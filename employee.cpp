@@ -1,25 +1,16 @@
 #include "employee.h"
 #include <string>
-#include <iostream>
 #include <random>
-#include <iomanip>
 
 Employee::Employee(const std::string& name, const std::string& employeeId)
     : name(name), employeeId(employeeId), position("unemployed"), hourlyRate(0.0)
 {
-    //position is initially set to "unemployed." Calling setPosition() to set it to something else
-    setPositionAndRate();
+    //position is initially set to "unemployed," and hourlyRate set to 0. Calling assignPositionAndRate() to set them to something else
+    assignPositionAndRate();
 }
 
-void Employee::displayInfo() const{
-    std::cout << "Employee name: " << name << std::endl;
-    std::cout << "Employee ID: " << employeeId << std::endl;
-    std::cout << "Position: " << position << std::endl;
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "Hourly Rate: $" << hourlyRate << std::endl;
-}
 
-void Employee::setPositionAndRate(){
+void Employee::assignPositionAndRate(){
     int num;
     //initialize a rand num generator
     std::random_device rd;
@@ -57,7 +48,26 @@ void Employee::setPositionAndRate(){
     }
 
 }
+   
 
-const std::string& Employee::getEmployeeId() const{
+void Employee::setName(const std::string& employeeName){
+    if(!employeeName.empty()){
+        name = employeeName;
+    }
+}
+
+std::string Employee::getName() const{
+    return name;
+}
+
+std::string Employee::getEmployeeId() const{
     return employeeId;
+}
+
+std::string Employee::getPosition() const{
+    return position;
+}
+
+double Employee::getHourlyRate() const{
+    return hourlyRate;
 }
