@@ -1,8 +1,6 @@
 //include header file
 #include "business.h"
-#include <iostream>
 #include <random>
-#include <iomanip>
 
 
 Business::Business(const std::string& businessName, const std::string& owner, const std::string& businessId, const std::string& bankAccountId)
@@ -13,16 +11,29 @@ Business::Business(const std::string& businessName, const std::string& owner, co
 }
 
 
-void Business::displayInfo()
-{
+std::string Business::getOwner() const{
     std::lock_guard<std::mutex> lock(businessMutex);
-    std::cout << "Business name: " << businessName << std::endl;
-    std::cout << "Owner: " << owner << std::endl;
-    std::cout << "Business ID: " << businessId << std::endl;
-    //only show 2 decimal places
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "Worth: $" << worth << std::endl;
+    return owner;
+}
 
+std::string Business::getBusinessId() const{
+    std::lock_guard<std::mutex> lock(businessMutex);
+    return businessId;
+}
+
+std::string Business::getBusinessName() const{
+    std::lock_guard<std::mutex> lock(businessMutex);
+    return businessName;
+}
+
+void Business::setOwner(const std::string& businessOwner){
+    std::lock_guard<std::mutex> lock(businessMutex);
+    owner = businessOwner;
+}
+
+void Business::setBusinessName(const std::string& name){
+    std::lock_guard<std::mutex> lock(businessMutex);
+    businessName = name;
 }
 
 void Business::setWorth(){
@@ -34,6 +45,11 @@ void Business::setWorth(){
 
     //generate a random num in the range [20000, 50000]
     worth = distrib(gen);
+}
+
+double Business::getWorth() const{
+    std::lock_guard<std::mutex> lock(businessMutex);
+    return worth;
 }
 
  std::optional<Employee> Business::findEmployee(const std::string& employeeId) const{
@@ -52,15 +68,6 @@ void Business::addEmployee(const Employee& employee){
     employees.push_back(employee);
 }
 
-
-void Business::displayEmployees() const{
-    std::lock_guard<std::mutex> lock(businessMutex);
-    for(const Employee& employee : employees){
-        employee.displayInfo();
-        std::cout << "-------------------" << std::endl;
-    }
-}
-
 bool Business::deposit(double amount){
     return bankAccount.deposit(amount);
 }
@@ -69,6 +76,6 @@ bool Business::withdrawal(double amount){
     return bankAccount.withdraw(amount);
 }
 
-double Business::getBalance(){
+double Business::getBalance() const{
     return bankAccount.getBalance();
 }

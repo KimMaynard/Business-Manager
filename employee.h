@@ -7,7 +7,7 @@ class Employee
 public:
 
     Employee(const std::string& name, const std::string& employeeId);
-    void setName(const std::string&);
+    void setName(const std::string& employeeName);
     std::string getName() const;
     std::string getEmployeeId() const;
     std::string getPosition() const;

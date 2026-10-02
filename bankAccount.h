@@ -17,7 +17,6 @@ public:
 private:
     std::string accountId;
     double balance;
-    double initialBalance;
     mutable std::mutex bankMutex;
 };  
 
